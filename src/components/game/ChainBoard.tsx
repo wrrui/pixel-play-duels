@@ -16,19 +16,6 @@ interface ChainBoardProps {
 
 const TILE_GAP = 4;
 
-const dotPositions: Record<number, Array<{ left: string; top: string }>> = {
-  1: [{ left: "50%", top: "50%" }],
-  2: [
-    { left: "35%", top: "50%" },
-    { left: "65%", top: "50%" },
-  ],
-  3: [
-    { left: "32%", top: "35%" },
-    { left: "68%", top: "35%" },
-    { left: "50%", top: "68%" },
-  ],
-};
-
 const ChainBoard: React.FC<ChainBoardProps> = ({ grid, onCellPress, turn }) => {
   const size = grid.length;
   return (
@@ -43,38 +30,24 @@ const ChainBoard: React.FC<ChainBoardProps> = ({ grid, onCellPress, turn }) => {
             const isP1 = cell.owner === "P1";
             const isP2 = cell.owner === "P2";
             const mine = cell.owner === turn || cell.owner === null;
-            const count = Math.min(cell.count, 3);
-            const positions = dotPositions[count as 1 | 2 | 3] ?? [];
             return (
               <button
                 key={`${r}-${c}`}
                 onClick={() => onCellPress(r, c)}
                 className={cn(
-                  "relative aspect-square rounded-md border bg-background/40",
+                  "relative aspect-square rounded-md border text-center font-semibold",
                   "transition-transform duration-150 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-ring",
-                  isP1 && "border-p1",
-                  isP2 && "border-p2",
+                  isP1 && "bg-primary text-primary-foreground border-primary/60",
+                  isP2 && "bg-brand text-primary-foreground border-[color:hsl(var(--brand))]/60",
+                  !cell.owner && "bg-muted text-foreground border-border",
                   mine ? "hover-scale" : "opacity-60 cursor-not-allowed"
                 )}
                 disabled={!mine}
                 aria-label={`Cell ${r + 1},${c + 1} ${cell.owner ?? 'empty'} with ${cell.count}`}
               >
-                {/* Dots */}
-                <div className="pointer-events-none absolute inset-0">
-                  {positions.map((pos, i) => (
-                    <span
-                      key={i}
-                      className={cn(
-                        "absolute block h-3 w-3 rounded-full shadow-sm md:h-3.5 md:w-3.5",
-                        isP1 ? "bg-p1" : isP2 ? "bg-p2" : "bg-muted"
-                      )}
-                      style={{
-                        left: `calc(${pos.left} - 0.5rem)`,
-                        top: `calc(${pos.top} - 0.5rem)`,
-                      }}
-                    />
-                  ))}
-                </div>
+                <span className="pointer-events-none absolute inset-0 grid place-items-center text-lg">
+                  {cell.count}
+                </span>
               </button>
             );
           })
