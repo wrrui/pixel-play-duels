@@ -53,8 +53,18 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
-  }
 
+    /* Brand & Game Tokens */
+    --brand: 265 84% 55%;
+
+    /* Vibrant game palette (HSL only) */
+    --game-c1: 340 82% 60%; /* pink */
+    --game-c2: 200 92% 55%; /* cyan */
+    --game-c3: 140 60% 45%; /* green */
+    --game-c4: 45 95% 55%;  /* amber */
+    --game-c5: 265 80% 60%; /* purple */
+    --game-c6: 15 85% 58%;  /* orange */
+  }
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -101,5 +111,31 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  .story-link {
+    position: relative;
+    display: inline-block;
+  }
+  .story-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 100%;
+    background-color: hsl(var(--brand));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  .story-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 }
