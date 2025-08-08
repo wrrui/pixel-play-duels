@@ -56,6 +56,8 @@ All colors MUST be HSL.
 
     /* Brand & Game Tokens */
     --brand: 265 84% 55%;
+    --p1: 0 80% 60%;   /* player 1 red */
+    --p2: 200 92% 55%; /* player 2 cyan */
 
     /* Vibrant game palette (HSL only) */
     --game-c1: 340 82% 60%; /* pink */
@@ -101,8 +103,13 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Player tokens in dark */
+    --p1: 0 80% 62%;
+    --p2: 200 92% 62%;
   }
 }
+
 
 @layer base {
   * {
